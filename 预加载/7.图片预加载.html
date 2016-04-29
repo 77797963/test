@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        /*
+        * 当前页面有多张（如：100张）图片需要显示
+        * 每次只显示一张，我们通过按钮，或者前后按钮来预览图片
+        *
+        *   1.把所有的图片都写在html中，然后隐藏所有，显示其中一张
+        *
+        *   2.把所有图片的地址保存到js变量中，然后页面中放置一个img就可以了，点击的时候，把当前要显示的图片的地址赋值给img
+        * */
+
+
+        var aUlr = [
+            'http://pic1.win4000.com/wallpaper/b/50a06956560a6.jpg',
+            'http://img6.3lian.com/c23/desk2/18/15/1935.jpg',
+            'http://image.tianjimedia.com/uploadImages/2012/013/0C4PQ1XX78O3.jpg',
+            'http://img6.3lian.com/c23/desk2/18/15/1938.jpg',
+            'http://pic.5442.com/2012/0809/25/17.jpg',
+            'http://pic.4j4j.cn/upload/pic/20130621/6a380a493b.jpg',
+            'http://img.wallba.com/data/Image/2013hjw/3yue/2hao/mnbz/1/20133491039498.jpg',
+            'http://bizhi.xue163.com/downpic/upload_xue163s/flashAll/20121122/1353546429bJizF3.jpg',
+            'http://t12.baidu.com/it/u=1368330842,963676170&fm=56',
+            'http://pic.4j4j.cn/upload/pic/20130711/575025b585.jpg',
+            'http://pic.4j4j.cn/upload/pic/20130621/516e50b9f0.jpg',
+            'http://i5.3conline.com/images/piclib/201112/18/batch/1/121486/1324206165758on5d08nnd7.jpg',
+            'http://img.pconline.com.cn/images/upload/upc/tx/wallpaper/1207/12/c0/12307766_1342056837663.jpg'
+        ];
+
+        window.onload = function() {
+            var oBtn = document.getElementById('btn');
+            var oImg = document.getElementById('img1');
+
+            /*var oImage = new Image();
+            oImage.onload = function() {
+                oImage.onload = function() {
+                    oImage.onload = function() {
+                        oImage.src = aUlr[2];
+                    }
+                    oImage.src = aUlr[2];
+                }
+                oImage.src = aUlr[1];
+            }
+            oImage.src = aUlr[0];*/
+
+            var oImage = new Image();
+            var iCur = 0;
+            var num = 0;
+
+            loadImage();
+
+            oBtn.onclick = function() {
+                if (num >= aUlr.length) {
+                    alert('后面没有图片了')
+                    return;
+                }
+                oImg.src = aUlr[num];
+                num++;
+            }
+
+            function loadImage() {
+                oImage.onload = function() {
+                    iCur++;
+                    document.title = iCur;
+                    if (iCur < aUlr.length) {
+                        loadImage();
+                    }
+                }
+                oImage.src = aUlr[iCur];
+            }
+
+        }
+     </script>
+</head>
+
+<body>
+    <input type="button" value="下一张" id="btn" />
+    <img style="width: 300px; height: 200px;" src="http://img.xmpig.com/forum/201312/14/164905hfpv2guu72ffngpi.jpg" id="img1" />
+</body>
+</html>
